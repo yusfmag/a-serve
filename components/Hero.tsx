@@ -73,7 +73,7 @@ export default function Hero() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="hero-skin" src={`https://mc-heads.net/body/${HERO_SKIN}/360`} alt="" />
         <div className="chip chip-1"><Icon name="target" size={16} /> Ranked Practice</div>
-        <div className="chip chip-2"><Icon name="crown" size={16} /> Season 1 Pass</div>
+        <div className="chip chip-2"><Icon name="crown" size={16} /> 50-Level Battle Pass</div>
         <div className="chip chip-3"><Icon name="gem" size={16} /> Iron → Netherite</div>
       </div>
     </section>

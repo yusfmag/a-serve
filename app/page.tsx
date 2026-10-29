@@ -17,6 +17,7 @@ import {
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Hotbar from "@/components/Hotbar";
+import BattlePass from "@/components/BattlePass";
 import Scoreboard from "@/components/Scoreboard";
 import Staff from "@/components/Staff";
 import Cosmetics from "@/components/Cosmetics";
@@ -37,8 +38,6 @@ function SectionHead({ eyebrow, title, text }: { eyebrow: string; title: React.R
 }
 
 export default function Home() {
-  const progress = (BATTLE_PASS.current / BATTLE_PASS.tiers.length) * 100;
-
   return (
     <>
       <Particles />
@@ -136,53 +135,10 @@ export default function Home() {
         <section id="battlepass" className="section">
           <SectionHead
             eyebrow="Battle Pass"
-            title={<>{BATTLE_PASS.season.split("—")[0]}<span className="grad">—{BATTLE_PASS.season.split("—")[1]}</span></>}
-            text="Play, complete challenges and unlock a reward at every tier. Free for everyone, with an exclusive premium track."
+            title={<>Unlock <span className="grad">exclusive rewards</span></>}
+            text={`${BATTLE_PASS.maxLevel} levels, a new tier every 5. Trails, glows, chat colors, kill effects and more. Click a tier to see what's inside.`}
           />
-
-          <div className="glass bp reveal">
-            <div className="bp-top">
-              <div>
-                <span className="bp-label">Season progress</span>
-                <div className="bp-tier">
-                  Tier {BATTLE_PASS.current} <span>/ {BATTLE_PASS.tiers.length}</span>
-                </div>
-              </div>
-              <div className="bp-ends">
-                <Icon name="calendar" size={16} /> Ends in {BATTLE_PASS.endsIn}
-              </div>
-            </div>
-            <div className="bp-bar">
-              <div className="bp-fill" style={{ width: `${progress}%` }} />
-            </div>
-
-            <div className="bp-track">
-              <div className="bp-rowlabels">
-                <span className="lbl-premium"><Icon name="crown" size={14} /> Premium</span>
-                <span className="lbl-free">Free</span>
-              </div>
-              <div className="bp-scroll">
-                {BATTLE_PASS.tiers.map((t, i) => {
-                  const n = i + 1;
-                  const state = n < BATTLE_PASS.current ? "done" : n === BATTLE_PASS.current ? "current" : "locked";
-                  const last = n === BATTLE_PASS.tiers.length;
-                  return (
-                    <div key={n} className={`bp-col ${state}${last ? " final" : ""}`}>
-                      <div className="bp-cell premium">
-                        <Icon name={last ? "sparkle" : "crown"} size={20} />
-                        <span>{t.premium}</span>
-                      </div>
-                      <div className="bp-num">{n}</div>
-                      <div className="bp-cell free">
-                        <Icon name="gift" size={18} />
-                        <span>{t.free}</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
+          <BattlePass />
         </section>
 
         {/* DAILY REWARDS */}
