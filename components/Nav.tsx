@@ -26,7 +26,8 @@ export default function Nav() {
   return (
     <header className={`nav${scrolled || open ? " scrolled" : ""}`}>
       <a href="#top" className="logo" onClick={() => setOpen(false)}>
-        <span className="logo-mark" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logo.png" alt="" className="logo-img" width={36} height={36} />
         CHLAMBA
       </a>
       <nav className={`nav-links${open ? " open" : ""}`}>

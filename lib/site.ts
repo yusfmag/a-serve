@@ -136,13 +136,13 @@ export const BATTLE_PASS = {
 };
 
 export const DAILY_REWARDS = [
-  { day: 1, reward: "50 Coins" },
-  { day: 2, reward: "Common Key" },
-  { day: 3, reward: "100 Coins" },
-  { day: 4, reward: "XP Boost" },
-  { day: 5, reward: "Rare Key" },
-  { day: 6, reward: "250 Coins" },
-  { day: 7, reward: "Mystery Crate", big: true },
+  { day: 1, reward: "100 XP" },
+  { day: 2, reward: "150 XP" },
+  { day: 3, reward: "200 XP" },
+  { day: 4, reward: "250 XP" },
+  { day: 5, reward: "300 XP" },
+  { day: 6, reward: "400 XP" },
+  { day: 7, reward: "1000 XP Bonus", big: true },
 ];
 
 export const NEW_PLAYER_PERKS: { icon: IconName; title: string; text: string }[] = [

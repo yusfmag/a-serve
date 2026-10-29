@@ -189,8 +189,8 @@ export default function Home() {
         <section id="daily" className="section">
           <SectionHead
             eyebrow="Daily Rewards"
-            title={<>Log in. <span className="grad">Get rewarded.</span></>}
-            text="Claim a reward every day. Keep your 7-day streak alive to unlock the Mystery Crate."
+            title={<>You get XP <span className="grad">to level up</span></>}
+            text="Log in every day to earn XP and level up. Keep your 7-day streak alive for the biggest XP bonus."
           />
           <div className="daily">
             {DAILY_REWARDS.map((d, i) => (
@@ -201,7 +201,7 @@ export default function Home() {
               >
                 <span className="day-num">Day {d.day}</span>
                 <span className="day-icon">
-                  <Icon name={d.big ? "chest" : i < 3 ? "shield" : "gift"} size={d.big ? 48 : 28} />
+                  <Icon name={d.big ? "rocket" : i < 3 ? "shield" : "bolt"} size={d.big ? 48 : 28} />
                 </span>
                 <span className="day-reward">{d.reward}</span>
                 {i < 3 && <span className="day-check">Claimed</span>}
@@ -363,7 +363,8 @@ export default function Home() {
 
       <footer className="footer">
         <div className="logo">
-          <span className="logo-mark" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.png" alt="" className="logo-img" width={36} height={36} />
           CHLAMBA
         </div>
         <p>&copy; {new Date().getFullYear()} Chlamba Network. Not affiliated with Mojang AB or Microsoft.</p>
