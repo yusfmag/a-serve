@@ -426,7 +426,7 @@ main, .nav, .footer { position: relative; z-index: 1; }
 .filter:hover { color: var(--text); border-color: var(--border-strong); }
 .filter.active { background: var(--text); color: var(--bg); border-color: var(--text); }
 
-.staff-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
+.staff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 270px)); justify-content: center; gap: 20px; }
 .staff-card {
   overflow: hidden; text-align: center; padding: 0 22px 26px;
   transition: transform .35s var(--ease), border-color .3s, box-shadow .3s;

@@ -10,7 +10,7 @@ export default function Staff() {
 
   return (
     <>
-      <div className="filters reveal" role="tablist">
+      {ranks.length > 2 && <div className="filters reveal" role="tablist">
         {ranks.map((r) => (
           <button
             key={r}
@@ -23,7 +23,7 @@ export default function Staff() {
             {r}
           </button>
         ))}
-      </div>
+      </div>}
 
       <div className="staff-grid">
         {list.map((s, i) => (

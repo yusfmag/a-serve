@@ -244,7 +244,7 @@ export default function Home() {
           <SectionHead
             eyebrow="The Team"
             title={<>Meet the <span className="grad">Staff</span></>}
-            text={`The people behind Chlamba, keeping ${MEMBERS}+ members safe, every fight fair and every event fun.`}
+            text={`The team behind Chlamba, keeping ${MEMBERS}+ members safe, every fight fair and every event fun.`}
           />
           <Staff />
         </section>

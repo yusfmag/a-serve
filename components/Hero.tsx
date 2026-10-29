@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { HERO_SKIN, KITS, MEMBERS, SERVER_IP, STAFF, VERSION } from "@/lib/site";
+import { HERO_SKIN, KITS, MEMBERS, SERVER_IP, VERSION } from "@/lib/site";
 import { IpCard } from "./CopyIp";
 import { CountUp } from "./Effects";
 import Icon from "./Icon";
@@ -60,8 +60,8 @@ export default function Hero() {
             <span className="stat-label">Members</span>
           </div>
           <div className="stat">
-            <span className="stat-num"><CountUp to={STAFF.length} /></span>
-            <span className="stat-label">Staff</span>
+            <span className="stat-num">{VERSION}</span>
+            <span className="stat-label">Version</span>
           </div>
           <div className="stat">
             <span className="stat-num"><CountUp to={KITS.length} /></span>

@@ -2,9 +2,9 @@
 //  EDIT THIS FILE — every piece of text on the site lives here
 // ============================================================
 
-export const SERVER_IP = "tn.ititan.org";
+export const SERVER_IP = "chlamba.ititan.org";
 export const VERSION = "1.21.11";
-export const DISCORD_URL = "https://discord.gg/your-invite";
+export const DISCORD_URL = "https://discord.gg/bKyda4nDvd";
 export const STORE_URL = "https://store.chlamba.net";
 export const MEMBERS = 500;
 
@@ -19,17 +19,11 @@ export const RANKS: Record<string, string> = {
 
 // "ign" = Minecraft username. The 3D skin render loads from it automatically.
 export const STAFF = [
-  { ign: "Notch", rank: "Owner", bio: "Founder of Chlamba. Sets the vision for the network." },
-  { ign: "jeb_", rank: "Admin", bio: "Runs operations, events and the staff team." },
-  { ign: "Dinnerbone", rank: "Developer", bio: "Builds the custom plugins behind every mode." },
-  { ign: "Grumm", rank: "Moderator", bio: "Keeps chat clean and every fight fair." },
-  { ign: "Technoblade", rank: "Moderator", bio: "Handles reports, appeals and anti-cheat reviews." },
-  { ign: "Dream", rank: "Helper", bio: "First face new players meet. Ask anything." },
-  { ign: "Grian", rank: "Builder", bio: "Designed spawn, the arenas and the lobby." },
+  { ign: "Tsukiym", rank: "Owner", bio: "Founder of Chlamba. Runs the server, the kits and the community." },
 ];
 
 // Skin shown in the hero
-export const HERO_SKIN = "Technoblade";
+export const HERO_SKIN = "Tsukiym";
 
 export const MARQUEE = [
   "Modern Practice",
