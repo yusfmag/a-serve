@@ -47,17 +47,17 @@ export const MARQUEE = [
   "Daily Rewards",
 ];
 
-// The lobby hotbar, slot by slot. null = empty slot.
-export const HOTBAR: ({ name: string; icon: IconName; color: string; action: string; text: string } | null)[] = [
-  { name: "Unranked Queue", icon: "sword", color: "#aaaaaa", action: "Right-click to queue", text: "Jump into a casual match on any kit. No ELO on the line, perfect for warming up." },
-  { name: "Ranked Queue", icon: "sparkle", color: "#55ffff", action: "Right-click to queue", text: "Fight for ELO and climb the divisions, from Iron all the way to Netherite." },
+// The lobby hotbar, slot by slot. null = empty slot. "head" shows the player's skin head instead of an icon.
+export const HOTBAR: ({ name: string; icon: IconName; color: string; action: string; text: string; head?: boolean } | null)[] = [
+  { name: "Queues", icon: "sword", color: "#aaaaaa", action: "Right-click to queue", text: "Jump into ranked or unranked on any kit. Fight for ELO or just warm up." },
+  { name: "Leaderboards", icon: "sparkle", color: "#55ffff", action: "Right-click to view", text: "See the top players globally and check the rankings for every kit." },
   { name: "Kit Editor", icon: "book", color: "#ffaa00", action: "Right-click to edit", text: "Rearrange every kit's layout exactly how you like it. Your layout follows you into every match." },
   null,
   { name: "Create Party", icon: "tag", color: "#ff55ff", action: "Right-click to create", text: "Invite your friends, then run party FFA, split fights or queue together." },
   null,
   { name: "Divisions", icon: "gem", color: "#55ff55", action: "Right-click to view", text: "See every rank, how much ELO each one needs and how close you are to the next." },
-  { name: "Leaderboards", icon: "compass", color: "#ffff55", action: "Right-click to view", text: "Top players globally, plus your personal stats: kills, wins and losses." },
-  { name: "Settings", icon: "gear", color: "#ff5555", action: "Right-click to open", text: "Toggle scoreboard, duel requests, spectators, time of day and more." },
+  { name: "Settings", icon: "compass", color: "#ffff55", action: "Right-click to open", text: "Change your server settings: scoreboard, duel requests, spectators and more." },
+  { name: "Your Stats", icon: "users", color: "#ff5555", action: "Right-click to view", text: "Your personal statistics: kills, wins, losses and ELO for every kit.", head: true },
 ];
 
 // Practice kits. Each one has its own ranked + unranked queue.
@@ -250,19 +250,10 @@ export const DAILY_REWARDS = [
   { day: 7, reward: "1000 XP Bonus", big: true },
 ];
 
-export const NEW_PLAYER_PERKS: { icon: IconName; title: string; text: string }[] = [
-  { icon: "chest", title: "Welcome Crate", text: "A free crate with a guaranteed trail or glow the moment you join." },
-  { icon: "star", title: "Exclusive Rookie Tag", text: "A unique tag only new players get. Never sold, never repeated." },
-  { icon: "rocket", title: "2x XP First Week", text: "Level up your battle pass twice as fast for your first 7 days." },
-  { icon: "sparkle", title: "Free Name Color", text: "Pick any color from the Color Picker for your first week." },
-  { icon: "book", title: "Kit Editor Guide", text: "Set up your layouts before your first ranked match." },
-  { icon: "users", title: "Helper Support", text: "A real staff member ready to show you around. Just ask in chat." },
-];
-
 export const JOIN_STEPS = [
   { title: "Launch Minecraft", text: `Open Minecraft Java Edition on version ${VERSION}.` },
   { title: "Add the server", text: "Go to Multiplayer → Add Server and paste the IP." },
-  { title: "Pick a kit & queue", text: "Use the sword for unranked or the star for ranked. That's it." },
+  { title: "Pick a kit & queue", text: "Right-click the sword, choose ranked or unranked and pick your kit. That's it." },
 ];
 
 export const FAQ = [

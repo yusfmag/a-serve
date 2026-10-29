@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { HOTBAR } from "@/lib/site";
+import { HERO_SKIN, HOTBAR } from "@/lib/site";
 import Icon from "./Icon";
 
 export default function Hotbar() {
@@ -22,7 +22,12 @@ export default function Hotbar() {
             onClick={() => slot && setSelected(i)}
             style={slot ? ({ "--c": slot.color } as React.CSSProperties) : undefined}
           >
-            {slot && <Icon name={slot.icon} size={28} />}
+            {slot?.head ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img className="slot-head" src={`https://mc-heads.net/avatar/${HERO_SKIN}/64`} alt="" />
+            ) : (
+              slot && <Icon name={slot.icon} size={28} />
+            )}
             <span className="slot-key">{i + 1}</span>
           </button>
         ))}

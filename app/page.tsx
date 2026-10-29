@@ -7,7 +7,6 @@ import {
   KITS,
   MARQUEE,
   MEMBERS,
-  NEW_PLAYER_PERKS,
   PLAYER_RANKS,
   SOCIALS,
   STAFF_RANKS,
@@ -174,32 +173,6 @@ export default function Home() {
             text="Browse trails, glows and name colors. Find the Cosmetics Shop NPC in the lobby."
           />
           <Cosmetics />
-        </section>
-
-        {/* NEW PLAYERS */}
-        <section id="newplayers" className="section">
-          <div className="newbie glass reveal">
-            <div className="newbie-head">
-              <span className="eyebrow">New here?</span>
-              <h2>
-                Perks only <span className="grad">new players</span> get
-              </h2>
-              <p>Your first week on Chlamba comes loaded. Every perk is unique to new players and can&apos;t be bought.</p>
-            </div>
-            <div className="perks">
-              {NEW_PLAYER_PERKS.map((p) => (
-                <div key={p.title} className="perk">
-                  <span className="perk-icon">
-                    <Icon name={p.icon} size={22} />
-                  </span>
-                  <div>
-                    <h3>{p.title}</h3>
-                    <p>{p.text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
         </section>
 
         {/* RANKS */}

@@ -8,7 +8,7 @@ const body = Inter({ subsets: ["latin"], variable: "--font-body" });
 export const metadata: Metadata = {
   title: "Chlamba — Modern Practice Server",
   description:
-    "Chlamba is a modern 1.21.11 Minecraft practice server: ranked kits, ELO divisions, a seasonal battle pass, daily rewards, unique cosmetics and perks for new players.",
+    "Chlamba is a modern 1.21.11 Minecraft practice server: ranked kits, ELO divisions, a 50-level battle pass, daily XP rewards and unique cosmetics.",
 };
 
 export const viewport: Viewport = { themeColor: "#07080d" };

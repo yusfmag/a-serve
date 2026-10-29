@@ -236,8 +236,8 @@ main, .nav, .footer { position: relative; z-index: 1; }
   letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
 }
 .eyebrow::before, .eyebrow::after { content: ""; width: 18px; height: 1px; background: currentColor; opacity: .6; }
-.section-head h2, .newbie-head h2 { font-family: var(--display); font-weight: 700; font-size: clamp(32px, 5vw, 54px); line-height: 1.1; margin-bottom: 14px; }
-.section-head p, .newbie-head p { color: var(--muted); font-size: 17px; }
+.section-head h2 { font-family: var(--display); font-weight: 700; font-size: clamp(32px, 5vw, 54px); line-height: 1.1; margin-bottom: 14px; }
+.section-head p { color: var(--muted); font-size: 17px; }
 
 .glass { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); backdrop-filter: blur(12px); }
 
@@ -318,6 +318,7 @@ main, .nav, .footer { position: relative; z-index: 1; }
 .slot:not(:disabled):hover { background: rgba(255,255,255,.08); transform: translateY(-3px); }
 .slot.active { border-color: #fff; background: color-mix(in srgb, var(--c) 16%, transparent); box-shadow: 0 0 24px -4px var(--c); transform: translateY(-3px); }
 .slot svg { filter: drop-shadow(0 2px 6px rgba(0,0,0,.6)); }
+.slot-head { width: 55%; height: 55%; image-rendering: pixelated; border-radius: 3px; filter: drop-shadow(0 2px 6px rgba(0,0,0,.6)); }
 .slot-key { position: absolute; bottom: 2px; right: 5px; font-size: 10px; font-weight: 600; color: rgba(255,255,255,.35); }
 .hotbar-detail { width: 100%; max-width: 520px; animation: fadeUp .35s var(--ease) both; }
 .hotbar-hint { font-size: 13px; color: var(--muted); }
@@ -519,17 +520,6 @@ main, .nav, .footer { position: relative; z-index: 1; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } }
 
 /* ---------- NEW PLAYERS ---------- */
-.newbie {
-  display: grid; grid-template-columns: .8fr 1.2fr; gap: 48px; padding: clamp(28px, 5vw, 56px);
-  background: linear-gradient(135deg, rgba(0,224,164,.08), rgba(123,92,255,.08)); border-radius: 28px;
-}
-.newbie-head .eyebrow::before { display: none; }
-.perks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-.perk { display: flex; gap: 14px; padding: 18px; border-radius: 14px; background: rgba(7,8,13,.45); border: 1px solid var(--border); transition: border-color .25s, transform .25s var(--ease); }
-.perk:hover { border-color: rgba(0,224,164,.35); transform: translateX(4px); }
-.perk-icon { flex-shrink: 0; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: rgba(0,224,164,.12); color: var(--accent); }
-.perk h3 { font-family: var(--display); font-weight: 600; font-size: 16px; margin-bottom: 2px; }
-.perk p { color: var(--muted); font-size: 14px; line-height: 1.5; }
 
 /* ---------- STAFF ---------- */
 .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 40px; }
@@ -635,7 +625,7 @@ main, .nav, .footer { position: relative; z-index: 1; }
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease), border-color .3s, background .3s; }
 .reveal.visible { opacity: 1; transform: none; }
 .reveal.visible:hover { transform: translateY(-4px); }
-.perks .perk, .faq-item.reveal.visible:hover { transform: none; }
+.faq-item.reveal.visible:hover { transform: none; }
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 1080px) {
@@ -657,7 +647,6 @@ main, .nav, .footer { position: relative; z-index: 1; }
   .scoreboard { max-width: 320px; width: 100%; justify-self: center; }
   .ladder { grid-template-columns: repeat(2, 1fr); }
   .ladder-group:last-child { grid-column: span 2; }
-  .newbie { grid-template-columns: 1fr; gap: 32px; }
 }
 @media (max-width: 860px) {
   .burger { display: block; }
@@ -682,7 +671,7 @@ main, .nav, .footer { position: relative; z-index: 1; }
 }
 @media (max-width: 600px) {
   .nav-right .btn { display: none; }
-  .features, .socials, .perks { grid-template-columns: 1fr; }
+  .features, .socials { grid-template-columns: 1fr; }
   .hero-visual { height: 380px; }
   .hero-skin { height: 280px; }
   .ring-1 { width: 270px; height: 270px; }
