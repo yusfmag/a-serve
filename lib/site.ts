@@ -8,14 +8,25 @@ export const DISCORD_URL = "https://discord.gg/bKyda4nDvd";
 export const STORE_URL = "https://store.chlamba.net";
 export const MEMBERS = 500;
 
-export const RANKS: Record<string, string> = {
+export type IconName =
+  | "sword" | "shield" | "trophy" | "bolt" | "crown" | "gift" | "star" | "sparkle"
+  | "calendar" | "users" | "rocket" | "lock" | "chest" | "flame" | "eye" | "target"
+  | "axe" | "gem" | "potion" | "mace" | "heart" | "book" | "tag" | "compass" | "gear";
+
+// Ranks, same order and names as the LuckPerms groups (highest weight first)
+export const STAFF_RANKS: Record<string, string> = {
   Owner: "#ff4d6d",
+  Creator: "#ff55ff",
   Admin: "#ff9f1c",
-  Developer: "#3ec5ff",
-  Moderator: "#00e0a4",
+  Mod: "#3ec5ff",
   Helper: "#ffd23f",
-  Builder: "#b86bff",
 };
+
+export const PLAYER_RANKS = [
+  { name: "MVP", color: "#55ffff", text: "Top supporter rank. Stand out in every lobby and queue." },
+  { name: "VIP", color: "#55ff55", text: "Supporter rank. Thanks for keeping Chlamba running." },
+  { name: "Default", color: "#aaaaaa", text: "Every player. Full access to every kit and queue." },
+];
 
 // "ign" = Minecraft username. The 3D skin render loads from it automatically.
 export const STAFF = [
@@ -29,17 +40,25 @@ export const MARQUEE = [
   "Modern Practice",
   `Version ${VERSION}`,
   "Ranked & Unranked",
-  "Crystal • Sword • Axe • Mace",
-  "Season 1 Battle Pass",
+  "Iron → Netherite Divisions",
+  "Trails & Glows",
+  "Kit Editor",
+  "Parties",
   "Daily Rewards",
-  "Unique Cosmetics",
-  "New Player Perks",
 ];
 
-export type IconName =
-  | "sword" | "shield" | "trophy" | "bolt" | "crown" | "gift" | "star" | "sparkle"
-  | "calendar" | "users" | "rocket" | "lock" | "chest" | "flame" | "eye" | "target"
-  | "axe" | "gem" | "potion" | "mace" | "heart";
+// The lobby hotbar, slot by slot. null = empty slot.
+export const HOTBAR: ({ name: string; icon: IconName; color: string; action: string; text: string } | null)[] = [
+  { name: "Unranked Queue", icon: "sword", color: "#aaaaaa", action: "Right-click to queue", text: "Jump into a casual match on any kit. No ELO on the line, perfect for warming up." },
+  { name: "Ranked Queue", icon: "sparkle", color: "#55ffff", action: "Right-click to queue", text: "Fight for ELO and climb the divisions, from Iron all the way to Netherite." },
+  { name: "Kit Editor", icon: "book", color: "#ffaa00", action: "Right-click to edit", text: "Rearrange every kit's layout exactly how you like it. Your layout follows you into every match." },
+  null,
+  { name: "Create Party", icon: "tag", color: "#ff55ff", action: "Right-click to create", text: "Invite your friends, then run party FFA, split fights or queue together." },
+  null,
+  { name: "Divisions", icon: "gem", color: "#55ff55", action: "Right-click to view", text: "See every rank, how much ELO each one needs and how close you are to the next." },
+  { name: "Leaderboards", icon: "compass", color: "#ffff55", action: "Right-click to view", text: "Top players globally, plus your personal stats: kills, wins and losses." },
+  { name: "Settings", icon: "gear", color: "#ff5555", action: "Right-click to open", text: "Toggle scoreboard, duel requests, spectators, time of day and more." },
+];
 
 // Practice kits. Each one has its own ranked + unranked queue.
 export const KITS: { name: string; icon: IconName; color: string; text: string }[] = [
@@ -48,28 +67,53 @@ export const KITS: { name: string; icon: IconName; color: string; text: string }
   { name: "Axe", icon: "axe", color: "#ff9f1c", text: "Shield breaks and axe crits. Read your opponent." },
   { name: "Mace", icon: "mace", color: "#b86bff", text: "Wind charges and smash attacks from the sky." },
   { name: "UHC", icon: "heart", color: "#ffd23f", text: "No natural regen. Golden apples, lava and rods." },
-  { name: "NethOP", icon: "potion", color: "#ff4d6d", text: "Full netherite, potions and totems. High-stakes." },
+  { name: "NethOP", icon: "potion", color: "#ff4d6d", text: "Full netherite, potions and totems. High stakes." },
   { name: "Pot", icon: "flame", color: "#00e0a4", text: "Diamond gear and splash potions. Classic pot PvP." },
   { name: "SMP", icon: "shield", color: "#7b8cff", text: "Real survival loadouts: pearls, shields, gaps." },
 ];
 
-// ELO divisions shown on the ranked ladder
+// Divisions as shown in the in-game /divisions menu.
+// Emerald 3 = 1100 ELO is confirmed in game; the others assume 100 ELO per step — adjust to match your config.
 export const DIVISIONS = [
-  { name: "Bronze", elo: "0", color: "#c47a3e" },
-  { name: "Silver", elo: "1000", color: "#b8c4d6" },
-  { name: "Gold", elo: "1300", color: "#ffc53d" },
-  { name: "Platinum", elo: "1600", color: "#3ee6c8" },
-  { name: "Diamond", elo: "1900", color: "#3ec5ff" },
-  { name: "Netherite", elo: "2200", color: "#ff4d8d" },
+  { family: "Iron", color: "#d8dde6", tiers: [0, 100, 200] },
+  { family: "Gold", color: "#ffc53d", tiers: [300, 400, 500] },
+  { family: "Diamond", color: "#5ef0ff", tiers: [600, 700, 800] },
+  { family: "Emerald", color: "#3ee67a", tiers: [900, 1000, 1100] },
+  { family: "Netherite", color: "#c9a8ff", tiers: [1200] },
 ];
 
-export const PVP_FEATURES: { icon: IconName; title: string; text: string; color: string }[] = [
-  { icon: "target", title: "Ranked Queues", text: "ELO matchmaking per kit, placement matches and seasonal divisions from Bronze to Netherite.", color: "#ff4d6d" },
-  { icon: "sword", title: "Unranked & Duels", text: "Warm up in unranked or /duel anyone with any kit, arena and round count.", color: "#00e0a4" },
-  { icon: "users", title: "Parties", text: "Party up for split fights, party FFA and 2v2 / 3v3 team queues.", color: "#b86bff" },
-  { icon: "flame", title: "FFA Arenas", text: "Drop in, fight, respawn. Kit-based free-for-all arenas that never close.", color: "#ff9f1c" },
-  { icon: "trophy", title: "Leaderboards & Stats", text: "Per-kit ELO, win streaks and global top 10. Every hit is tracked.", color: "#ffd23f" },
-  { icon: "shield", title: "Fair Play", text: `Modern ${VERSION} combat, low-ping hosting, anti-cheat and active staff review.`, color: "#3ec5ff" },
+// Minecraft's 16 chat colors, used by Glows and Name Colors
+export const MC_COLORS = [
+  { name: "Black", hex: "#1a1a1a" },
+  { name: "Dark Blue", hex: "#0000aa" },
+  { name: "Dark Green", hex: "#00aa00" },
+  { name: "Dark Aqua", hex: "#00aaaa" },
+  { name: "Dark Red", hex: "#aa0000" },
+  { name: "Dark Purple", hex: "#aa00aa" },
+  { name: "Gold", hex: "#ffaa00" },
+  { name: "Gray", hex: "#aaaaaa" },
+  { name: "Dark Gray", hex: "#555555" },
+  { name: "Blue", hex: "#5555ff" },
+  { name: "Green", hex: "#55ff55" },
+  { name: "Aqua", hex: "#55ffff" },
+  { name: "Red", hex: "#ff5555" },
+  { name: "Light Purple", hex: "#ff55ff" },
+  { name: "Yellow", hex: "#ffff55" },
+  { name: "White", hex: "#ffffff" },
+];
+
+// Trails from the in-game Trails Menu
+export const TRAILS = [
+  { name: "Flame", color: "#ff8a1c" },
+  { name: "Redstone", color: "#ff2a2a" },
+  { name: "Slime", color: "#7ad13e" },
+  { name: "Cloud", color: "#eef3f8" },
+  { name: "Smoke", color: "#7a808c" },
+  { name: "Notes", color: "#4fe36b" },
+  { name: "Lava", color: "#ff5a1a" },
+  { name: "Water", color: "#3b7cff" },
+  { name: "Frost", color: "#7ee8ff" },
+  { name: "Portal", color: "#a24dff" },
 ];
 
 // Battle pass tiers. "current" is the sample progress shown on the track.
@@ -78,16 +122,16 @@ export const BATTLE_PASS = {
   endsIn: "42 days",
   current: 4,
   tiers: [
-    { free: "100 Coins", premium: "Ember Trail" },
-    { free: "Common Crate", premium: "Spark Kill Effect" },
-    { free: "250 Coins", premium: "\"Rising\" Title" },
-    { free: "XP Boost 1h", premium: "Rare Crate" },
-    { free: "Daily Key", premium: "Frost Cage" },
-    { free: "500 Coins", premium: "Voltage Trail" },
-    { free: "Epic Crate", premium: "Thunder Kill Effect" },
-    { free: "XP Boost 3h", premium: "Animated Banner" },
-    { free: "1000 Coins", premium: "\"Awakened\" Title" },
-    { free: "Legendary Crate", premium: "Mythic Dragon Wings" },
+    { free: "100 Coins", premium: "Flame Trail" },
+    { free: "Green Name", premium: "Aqua Glow" },
+    { free: "250 Coins", premium: "Cloud Trail" },
+    { free: "XP Boost 1h", premium: "Gold Name" },
+    { free: "Daily Key", premium: "Light Purple Glow" },
+    { free: "500 Coins", premium: "Frost Trail" },
+    { free: "Yellow Glow", premium: "Lava Trail" },
+    { free: "XP Boost 3h", premium: "Dark Red Glow" },
+    { free: "1000 Coins", premium: "Portal Trail" },
+    { free: "Legendary Crate", premium: "Rainbow Glow" },
   ],
 };
 
@@ -101,63 +145,27 @@ export const DAILY_REWARDS = [
   { day: 7, reward: "Mystery Crate", big: true },
 ];
 
-export const RARITY: Record<string, string> = {
-  Common: "#9aa3b8",
-  Rare: "#3ec5ff",
-  Epic: "#b86bff",
-  Legendary: "#ff9f1c",
-  Mythic: "#ff4d8d",
-};
-
-export const COSMETICS: Record<string, { name: string; rarity: string; icon: IconName }[]> = {
-  "Kill Effects": [
-    { name: "Thunder Strike", rarity: "Legendary", icon: "bolt" },
-    { name: "Soul Burst", rarity: "Epic", icon: "sparkle" },
-    { name: "Blood Moon", rarity: "Mythic", icon: "eye" },
-    { name: "Firework", rarity: "Rare", icon: "star" },
-  ],
-  Trails: [
-    { name: "Ember Trail", rarity: "Rare", icon: "flame" },
-    { name: "Voltage", rarity: "Epic", icon: "bolt" },
-    { name: "Stardust", rarity: "Legendary", icon: "sparkle" },
-    { name: "Void Walker", rarity: "Mythic", icon: "eye" },
-  ],
-  Cages: [
-    { name: "Glass Box", rarity: "Common", icon: "lock" },
-    { name: "Frost Cage", rarity: "Rare", icon: "lock" },
-    { name: "Nether Gate", rarity: "Epic", icon: "flame" },
-    { name: "Dragon Lair", rarity: "Mythic", icon: "crown" },
-  ],
-  Titles: [
-    { name: "Rookie", rarity: "Common", icon: "star" },
-    { name: "Duelist", rarity: "Epic", icon: "sword" },
-    { name: "Awakened", rarity: "Legendary", icon: "crown" },
-    { name: "Untouchable", rarity: "Mythic", icon: "shield" },
-  ],
-};
-
 export const NEW_PLAYER_PERKS: { icon: IconName; title: string; text: string }[] = [
-  { icon: "chest", title: "Welcome Crate", text: "A free crate with a guaranteed Rare cosmetic the moment you join." },
+  { icon: "chest", title: "Welcome Crate", text: "A free crate with a guaranteed trail or glow the moment you join." },
   { icon: "star", title: "Exclusive Rookie Tag", text: "A unique tag only new players get. Never sold, never repeated." },
   { icon: "rocket", title: "2x XP First Week", text: "Level up your battle pass twice as fast for your first 7 days." },
-  { icon: "shield", title: "Spawn Protection", text: "30 minutes of protection to learn the ropes before the fights begin." },
-  { icon: "gift", title: "Starter Kit", text: "Full gear set and a coin bonus so you can compete from day one." },
-  { icon: "users", title: "Helper Guide", text: "A real staff member ready to show you around. Just type /helpme." },
+  { icon: "sparkle", title: "Free Name Color", text: "Pick any color from the Color Picker for your first week." },
+  { icon: "book", title: "Kit Editor Guide", text: "Set up your layouts before your first ranked match." },
+  { icon: "users", title: "Helper Support", text: "A real staff member ready to show you around. Just ask in chat." },
 ];
 
 export const JOIN_STEPS = [
   { title: "Launch Minecraft", text: `Open Minecraft Java Edition on version ${VERSION}.` },
   { title: "Add the server", text: "Go to Multiplayer → Add Server and paste the IP." },
-  { title: "Pick a kit & queue", text: "Open your Welcome Crate, choose a kit and hit ranked or unranked." },
+  { title: "Pick a kit & queue", text: "Use the sword for unranked or the star for ranked. That's it." },
 ];
 
 export const FAQ = [
   { q: "What version do I need?", a: `Chlamba runs on ${VERSION}. Join with Java Edition ${VERSION} for the full modern practice experience.` },
-  { q: "Which kits can I play?", a: "Crystal, Sword, Axe, Mace, UHC, NethOP, Pot and SMP, each with its own ranked and unranked queue." },
-  { q: "How does ranked work?", a: "Each kit has its own ELO. Play placement matches, then climb from Bronze to Netherite. Divisions reset every season." },
-  { q: "Is the server free to play?", a: "Yes. Everything that affects gameplay is free. The store only sells cosmetics and the premium battle pass track." },
-  { q: "How does the battle pass work?", a: "Earn XP by playing matches and completing daily challenges. Each tier unlocks a free reward, and premium owners get an extra exclusive reward per tier." },
-  { q: "How do daily rewards work?", a: "Log in every day and type /daily. Keep your streak for 7 days to unlock the Mystery Crate." },
+  { q: "How do divisions work?", a: "Win ranked matches to gain ELO. You start in Iron and climb through Gold, Diamond and Emerald (three levels each) to reach Netherite at the top." },
+  { q: "Can I change my kit layout?", a: "Yes. Right-click the Kit Editor book in the lobby to rearrange any kit. Your layout is saved and used in every match." },
+  { q: "What cosmetics are there?", a: "Trails, glows (16 colors plus rainbow) and name colors. Browse them at the Cosmetics Shop in the lobby." },
+  { q: "Is the server free to play?", a: "Yes. Every kit and queue is free. VIP and MVP ranks and cosmetics help support the server." },
   { q: "How do I report a cheater or apply for staff?", a: "Open a ticket in our Discord. Staff applications open regularly, so watch the announcements channel." },
 ];
 
@@ -169,5 +177,5 @@ export const SOCIALS: { name: string; handle: string; url: string; color: string
   { name: "TikTok", handle: "@chlamba", url: "https://tiktok.com/@chlamba", color: "#25f4ee", icon: "tiktok" },
   { name: "Instagram", handle: "@chlamba", url: "https://instagram.com/chlamba", color: "#e4405f", icon: "instagram" },
   { name: "X", handle: "@chlamba", url: "https://x.com/chlamba", color: "#e7e9ea", icon: "x" },
-  { name: "Store", handle: "Cosmetics & Pass", url: STORE_URL, color: "#ffd23f", icon: "store" },
+  { name: "Store", handle: "Ranks & cosmetics", url: STORE_URL, color: "#ffd23f", icon: "store" },
 ];

@@ -3,18 +3,21 @@ import {
   DAILY_REWARDS,
   DIVISIONS,
   FAQ,
-  KITS,
-  VERSION,
   JOIN_STEPS,
+  KITS,
   MARQUEE,
   MEMBERS,
   NEW_PLAYER_PERKS,
-  PVP_FEATURES,
+  PLAYER_RANKS,
   SOCIALS,
+  STAFF_RANKS,
   STORE_URL,
+  VERSION,
 } from "@/lib/site";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
+import Hotbar from "@/components/Hotbar";
+import Scoreboard from "@/components/Scoreboard";
 import Staff from "@/components/Staff";
 import Cosmetics from "@/components/Cosmetics";
 import Icon from "@/components/Icon";
@@ -60,12 +63,25 @@ export default function Home() {
           </div>
         </div>
 
+        {/* LOBBY */}
+        <section id="lobby" className="section">
+          <SectionHead
+            eyebrow="The Lobby"
+            title={<>Everything is <span className="grad">one click away</span></>}
+            text="Queue, edit kits, party up and check your stats straight from your hotbar. This is exactly what you get when you join."
+          />
+          <div className="lobby">
+            <Hotbar />
+            <Scoreboard />
+          </div>
+        </section>
+
         {/* KITS */}
         <section id="kits" className="section">
           <SectionHead
             eyebrow="Kits"
             title={<>Pick your <span className="grad">weapon</span></>}
-            text={`Eight modern ${VERSION} kits, each with its own ranked ladder, unranked queue and FFA arena.`}
+            text={`Modern ${VERSION} kits with ranked and unranked queues. Customize every layout in the Kit Editor.`}
           />
           <div className="kits">
             {KITS.map((k) => (
@@ -78,48 +94,39 @@ export default function Home() {
                 <div className="kit-tags">
                   <span>Ranked</span>
                   <span>Unranked</span>
-                  <span>FFA</span>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* RANKED */}
-        <section id="ranked" className="section">
+        {/* DIVISIONS */}
+        <section id="divisions" className="section">
           <SectionHead
-            eyebrow="Ranked"
-            title={<>Climb to <span className="grad">Netherite</span></>}
-            text="Every kit has its own ELO. Win placements, climb divisions and finish the season with exclusive rewards."
+            eyebrow="Divisions"
+            title={<>Iron to <span className="grad">Netherite</span></>}
+            text="Win ranked matches, earn ELO and climb. Hover any rank to see what it takes."
           />
-          <div className="divisions reveal">
-            {DIVISIONS.map((d, i) => (
-              <div key={d.name} className="division" style={{ "--c": d.color, "--h": `${40 + i * 12}%` } as Vars}>
-                <div className="division-bar">
-                  <Icon name={i === DIVISIONS.length - 1 ? "crown" : "shield"} size={26} />
+          <div className="ladder reveal">
+            {DIVISIONS.map((d, gi) => (
+              <div key={d.family} className="ladder-group" style={{ "--c": d.color } as Vars}>
+                <span className="ladder-family">{d.family}</span>
+                <div className="ladder-tiers">
+                  {d.tiers.map((elo, ti) => {
+                    const label = d.tiers.length > 1 ? `${d.family} ${ti + 1}` : d.family;
+                    return (
+                      <div key={label} className={`rank-gem${gi === DIVISIONS.length - 1 ? " top" : ""}`} tabIndex={0}>
+                        <Icon name={gi === DIVISIONS.length - 1 ? "crown" : "gem"} size={gi === DIVISIONS.length - 1 ? 34 : 24} />
+                        {d.tiers.length > 1 && <span className="rank-num">{ti + 1}</span>}
+                        <div className="mc-tooltip gem-tip" role="tooltip">
+                          <span className="mc-tooltip-title" style={{ color: d.color }}>{label}</span>
+                          <p>To reach this rank you need {elo} elo.</p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-                <span className="division-name">{d.name}</span>
-                <span className="division-elo">{d.elo}+ ELO</span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* PRACTICE FEATURES */}
-        <section id="pvp" className="section">
-          <SectionHead
-            eyebrow="Modern Practice"
-            title={<>Built for <span className="grad">real fighters</span></>}
-            text="Queues, parties, FFA and stats. Everything a practice server needs, tuned by players who actually PvP."
-          />
-          <div className="features">
-            {PVP_FEATURES.map((f) => (
-              <div key={f.title} className="glass feature reveal" style={{ "--c": f.color } as Vars}>
-                <div className="feature-icon">
-                  <Icon name={f.icon} size={26} />
-                </div>
-                <h3>{f.title}</h3>
-                <p>{f.text}</p>
+                <span className="ladder-elo">{d.tiers[0]}+ ELO</span>
               </div>
             ))}
           </div>
@@ -182,8 +189,8 @@ export default function Home() {
         <section id="daily" className="section">
           <SectionHead
             eyebrow="Daily Rewards"
-            title={<>Log in. <span className="grad">Get paid.</span></>}
-            text="Type /daily every day. Keep your 7-day streak alive to unlock the Mystery Crate."
+            title={<>Log in. <span className="grad">Get rewarded.</span></>}
+            text="Claim a reward every day. Keep your 7-day streak alive to unlock the Mystery Crate."
           />
           <div className="daily">
             {DAILY_REWARDS.map((d, i) => (
@@ -206,9 +213,9 @@ export default function Home() {
         {/* COSMETICS */}
         <section id="cosmetics" className="section">
           <SectionHead
-            eyebrow="Unique Cosmetics"
-            title={<>Stand out <span className="grad">in every fight</span></>}
-            text="Kill effects, trails, cages and titles designed in-house. Most can only be earned and are never sold."
+            eyebrow="Cosmetics Shop"
+            title={<>Customize your <span className="grad">appearance</span></>}
+            text="Browse trails, glows and name colors. Find the Cosmetics Shop NPC in the lobby."
           />
           <Cosmetics />
         </section>
@@ -239,12 +246,46 @@ export default function Home() {
           </div>
         </section>
 
+        {/* RANKS */}
+        <section id="ranks" className="section">
+          <SectionHead
+            eyebrow="Ranks"
+            title={<>Every rank on <span className="grad">Chlamba</span></>}
+            text="Support the server with a player rank, or meet the staff ranks that keep it running."
+          />
+          <div className="ranks">
+            <div className="ranks-col">
+              <h3 className="ranks-title">Player Ranks</h3>
+              {PLAYER_RANKS.map((r) => (
+                <div key={r.name} className="glass player-rank reveal" style={{ "--c": r.color } as Vars}>
+                  <span className="rank-tag">[{r.name}]</span>
+                  <p>{r.text}</p>
+                </div>
+              ))}
+              <a href={STORE_URL} target="_blank" rel="noopener" className="btn btn-ghost ranks-store">
+                Get a rank
+              </a>
+            </div>
+            <div className="ranks-col">
+              <h3 className="ranks-title">Staff Ranks</h3>
+              <div className="glass staff-ladder reveal">
+                {Object.entries(STAFF_RANKS).map(([name, color], i) => (
+                  <div key={name} className="staff-step" style={{ "--c": color } as Vars}>
+                    <span className="staff-step-num">{i + 1}</span>
+                    <span className="rank-tag">[{name}]</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* STAFF */}
         <section id="staff" className="section">
           <SectionHead
             eyebrow="The Team"
             title={<>Meet the <span className="grad">Staff</span></>}
-            text={`The team behind Chlamba, keeping ${MEMBERS}+ members safe, every fight fair and every event fun.`}
+            text={`The team behind Chlamba, keeping ${MEMBERS}+ members safe and every fight fair.`}
           />
           <Staff />
         </section>
@@ -308,7 +349,7 @@ export default function Home() {
             <div className="cta-glow" />
             <div>
               <h3>Ready to fight?</h3>
-              <p>Launch Minecraft, add the server and claim your Welcome Crate.</p>
+              <p>Launch Minecraft {VERSION}, add the server and hit ranked.</p>
             </div>
             <div className="cta-actions">
               <a href={STORE_URL} target="_blank" rel="noopener" className="btn btn-ghost">

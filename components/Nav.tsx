@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { DISCORD_URL } from "@/lib/site";
 
 const LINKS = [
-  { href: "#kits", label: "Kits" },
-  { href: "#ranked", label: "Ranked" },
+  { href: "#lobby", label: "Lobby" },
+  { href: "#divisions", label: "Divisions" },
   { href: "#battlepass", label: "Battle Pass" },
   { href: "#cosmetics", label: "Cosmetics" },
-  { href: "#staff", label: "Staff" },
+  { href: "#ranks", label: "Ranks" },
   { href: "#faq", label: "FAQ" },
 ];
 

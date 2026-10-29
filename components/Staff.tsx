@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { RANKS, STAFF } from "@/lib/site";
+import { STAFF_RANKS as RANKS, STAFF } from "@/lib/site";
 
 export default function Staff() {
   const [filter, setFilter] = useState("All");
